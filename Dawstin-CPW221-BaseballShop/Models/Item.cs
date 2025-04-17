@@ -1,4 +1,5 @@
 ﻿using Dawstin_CPW221_BaseballShop.Baseball_Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dawstin_CPW221_BaseballShop.Models
 {
@@ -11,6 +12,7 @@ namespace Dawstin_CPW221_BaseballShop.Models
         public decimal Price { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public Category Category { get; set; }
+        [NotMapped] // This property will be ignored by Entity Framework
+        public object Category { get; set; }
     }
 }

@@ -3,5 +3,6 @@
     public class Item
     {
         public object Category { get; internal set; }
+        public object CategoryID { get; internal set; }
     }
 }

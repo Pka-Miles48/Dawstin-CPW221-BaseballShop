@@ -19,8 +19,7 @@ namespace Dawstin_CPW221_BaseballShop.Baseball_Data
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Relationships from the second snippet
+        {                         
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.Customer)
                 .WithMany()
@@ -39,6 +38,16 @@ namespace Dawstin_CPW221_BaseballShop.Baseball_Data
             modelBuilder.Entity<Item>().Ignore(i => i.Category);
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category { CategoryID = 1, Name = "Bats" },
+                new Category { CategoryID = 2, Name = "Gloves" }
+            );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product { ProductID = 1, Name = "Baseball Bat", Description = "High-quality aluminum bat", Price = 99.99m, Stock = 50, CategoryID = 1 },
+                new Product { ProductID = 2, Name = "Baseball Glove", Description = "Durable leather glove", Price = 49.99m, Stock = 30, CategoryID = 2 }
+            );
         }
     }
 }

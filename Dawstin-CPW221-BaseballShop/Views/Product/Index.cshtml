@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Dawstin_CPW221_BaseballShop.Models.Product>
+
+<h1>Products</h1>
+
+<form method="get" asp-action="Index">
+    <label for="category">Category:</label>
+    <select id="category" name="category">
+        <option value="">All</option>
+        @foreach (var category in ViewBag.Categories as List<string>)
+        {
+            <option value="@category">@category</option>
+        }
+    </select>
+
+    <label for="minPrice">Min Price:</label>
+    <input type="number" id="minPrice" name="minPrice" step="0.01" />
+
+    <label for="maxPrice">Max Price:</label>
+    <input type="number" id="maxPrice" name="maxPrice" step="0.01" />
+
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

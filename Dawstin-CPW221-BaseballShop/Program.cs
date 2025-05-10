@@ -1,4 +1,5 @@
 using Dawstin_CPW221_BaseballShop.Baseball_Data;
+using Dawstin_CPW221_BaseballShop.Models;
 using Dawstin_CPW221_BaseballShop.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,8 +26,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -50,3 +49,26 @@ builder.Services.AddSession();
 
 // Activates session handling middleware to manage user sessions.
 app.UseSession();
+
+// Configures ASP.NET Core Identity with default settings.
+// The ApplicationUser class represents the user entity.
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    // Specifies whether users must confirm their email before signing in.
+    // Set to 'true' if email confirmation is required for account activation.
+    options.SignIn.RequireConfirmedAccount = false;
+})
+    // Uses Entity Framework to store user data in the BaseballShop database.
+    .AddEntityFrameworkStores<BaseballShopContext>();
+
+// Enables authentication services to validate user credentials.
+builder.Services.AddAuthentication();
+
+// Enables authorization services to manage access control (roles & policies).
+builder.Services.AddAuthorization();
+
+// Applies authentication middleware to enforce user login.
+app.UseAuthentication();
+
+// Applies authorization middleware to restrict access based on user roles and policies.
+app.UseAuthorization();

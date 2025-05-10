@@ -1,0 +1,14 @@
+﻿@model ManageAccountViewModel
+
+<h2>Manage Account</h2>
+<p>Update your account details below:</p>
+
+<form method="post">
+    <label>Email:</label>
+    <input type="email" asp-for="Email" required />
+
+    <label>Change Password:</label>
+    <input type="password" asp-for="NewPassword" />
+
+    <button type="submit">Update Account</button>
+</form>

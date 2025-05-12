@@ -59,7 +59,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false;
 })
     // Uses Entity Framework to store user data in the BaseballShop database.
-    .AddEntityFrameworkStores<BaseballShopContext>();
+    .AddEntityFrameworkStores<BaseballShop>();
 
 // Enables authentication services to validate user credentials.
 builder.Services.AddAuthentication();

@@ -1,0 +1,23 @@
+﻿<h2>Admin Dashboard</h2>
+
+<!-- Product Management -->
+<h3>Manage Products</h3>
+<table class="table">
+    <thead>
+        <tr><th>ID</th><th>Name</th><th>Price</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.ProductID</td>
+                <td>@product.Name</td>
+                <td>$@product.Price</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Product", new { id = product.ProductID })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", "Product", new { id = product.ProductID })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

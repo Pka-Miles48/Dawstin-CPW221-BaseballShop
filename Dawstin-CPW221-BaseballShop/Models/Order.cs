@@ -36,5 +36,15 @@
         /// Gets or sets the navigation property for the associated customer.
         /// </summary>
         public Customer Customer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the customer who placed the order.
+        /// </summary>
+        public string CustomerName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total price of the order, including all purchased items.
+        /// </summary>
+        public decimal TotalPrice { get; set; }
     }
 }

@@ -1,22 +1,27 @@
-﻿<h2>Admin Dashboard</h2>
+﻿@model AdminDashboardViewModel
 
-<!-- Product Management -->
-<h3>Manage Products</h3>
+<h2>Admin Dashboard</h2>
+
+<!-- Load Product Management as a Partial View -->
+@await Html.PartialAsync("_ManageProducts", Model.Products)
+
+<!-- Load Order Management as a Partial View -->
+@await Html.PartialAsync("_ManageOrders", Model.Orders)
+
+<!-- Order Management -->
+<h3>Recent Orders</h3>
 <table class="table">
     <thead>
-        <tr><th>ID</th><th>Name</th><th>Price</th><th>Actions</th></tr>
+        <tr><th>Order ID</th><th>Customer</th><th>Total Price</th><th>Status</th></tr>
     </thead>
     <tbody>
-        @foreach (var product in Model.Products)
+        @foreach (var order in Model.Orders)
         {
             <tr>
-                <td>@product.ProductID</td>
-                <td>@product.Name</td>
-                <td>$@product.Price</td>
-                <td>
-                    <a href="@Url.Action("Edit", "Product", new { id = product.ProductID })" class="btn btn-warning">Edit</a>
-                    <a href="@Url.Action("Delete", "Product", new { id = product.ProductID })" class="btn btn-danger">Delete</a>
-                </td>
+                <td>@order.OrderID</td>
+                <td>@order.CustomerName</td>
+                <td>$@order.TotalPrice</td>
+                <td>@order.Status</td>
             </tr>
         }
     </tbody>

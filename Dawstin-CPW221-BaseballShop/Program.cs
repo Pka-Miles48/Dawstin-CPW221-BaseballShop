@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BaseballShop>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BaseballShop")));
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

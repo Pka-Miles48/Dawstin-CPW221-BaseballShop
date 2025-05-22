@@ -1,4 +1,6 @@
-﻿namespace Dawstin_CPW221_BaseballShop.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Dawstin_CPW221_BaseballShop.Models
 {
     /// <summary>
     /// Represents a product available for sale in the Baseball Shop.
@@ -42,7 +44,8 @@
         /// <remarks>
         /// Avoid using 'object' type for category; use 'Category' instead.
         /// </remarks>
-        public object Category { get; internal set; }
+        [NotMapped]
+        public object Category { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key for the category this product belongs to.

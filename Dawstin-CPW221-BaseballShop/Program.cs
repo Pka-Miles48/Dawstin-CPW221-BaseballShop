@@ -1,5 +1,6 @@
 using Dawstin_CPW221_BaseballShop.Baseball_Data;
 using Dawstin_CPW221_BaseballShop.Models;
+using Dawstin_CPW221_BaseballShop.Repositories;
 using Dawstin_CPW221_BaseballShop.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -74,3 +75,6 @@ app.UseAuthentication();
 
 // Applies authorization middleware to restrict access based on user roles and policies.
 app.UseAuthorization();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();

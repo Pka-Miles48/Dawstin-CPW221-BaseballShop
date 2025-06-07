@@ -20,6 +20,7 @@
 
   <ItemGroup>
 	  <ProjectReference Include="..\BaseballShop\BaseballShop.csproj" />
+	  <ProjectReference Include="..\Dawstin-CPW221-BaseballShop\Dawstin-CPW221-BaseballShop.csproj" />
   </ItemGroup>
 
 </Project>

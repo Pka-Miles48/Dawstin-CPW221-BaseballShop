@@ -2,6 +2,7 @@ using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BaseballShop.Services;
 using BaseballShop.Models;
+using Dawstin_CPW221_BaseballShop.Repositories;
 
 [TestClass]
 public class ProductServiceTests

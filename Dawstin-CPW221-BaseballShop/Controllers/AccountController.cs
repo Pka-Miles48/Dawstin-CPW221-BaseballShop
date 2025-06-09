@@ -6,21 +6,39 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Dawstin_CPW221_BaseballShop.Controllers
 {
+    /// <summary>
+    /// Manages user authentication, registration, and account-related actions.
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="userManager">Manages user authentication and identity-related operations.</param>
+        /// <param name="signInManager">Handles user sign-in and authentication status.</param>
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        [AllowAnonymous] // Allows access to the registration page without logging in
+        /// <summary>
+        /// Displays the login page.
+        /// </summary>
+        /// <returns>The login view.</returns>
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login() => View();
 
+        /// <summary>
+        /// Attempts to log the user in with provided email and password.
+        /// </summary>
+        /// <param name="email">The user's email address.</param>
+        /// <param name="password">The user's password.</param>
+        /// <returns>Redirects to the home page if successful; otherwise, displays the login view with an error message.</returns>
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
@@ -34,9 +52,19 @@ namespace Dawstin_CPW221_BaseballShop.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Displays the registration page.
+        /// </summary>
+        /// <returns>The registration view.</returns>
         [HttpGet]
         public IActionResult Register() => View();
 
+        /// <summary>
+        /// Registers a new user with provided email and password.
+        /// </summary>
+        /// <param name="email">The user's email address.</param>
+        /// <param name="password">The user's chosen password.</param>
+        /// <returns>Redirects to the login page if successful; otherwise, displays the registration view.</returns>
         [HttpPost]
         public async Task<IActionResult> Register(string email, string password)
         {
@@ -46,6 +74,10 @@ namespace Dawstin_CPW221_BaseballShop.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Logs out the currently authenticated user.
+        /// </summary>
+        /// <returns>Redirects to the home page after logout.</returns>
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -53,6 +85,11 @@ namespace Dawstin_CPW221_BaseballShop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Displays the login page and stores the return URL.
+        /// </summary>
+        /// <param name="returnUrl">The URL to return to after login.</param>
+        /// <returns>The login view with the return URL set.</returns>
         public IActionResult Login(string returnUrl = "/")
         {
             ViewData["ReturnUrl"] = returnUrl;

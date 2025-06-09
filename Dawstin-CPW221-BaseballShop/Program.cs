@@ -6,77 +6,67 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Register database context using SQL Server connection string
 builder.Services.AddDbContext<BaseballShop>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BaseballShop")));
 
+// Enable developer-friendly error pages for database-related issues
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Add MVC controllers with views
 builder.Services.AddControllersWithViews();
+
+// Register an instance of IHttpContextAccessor for session and context-related operations
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+// Enable session support to persist cart data across requests
+builder.Services.AddSession();
+
+// Configure ASP.NET Core Identity for authentication
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    // Allows users to sign in without email confirmation (modify if needed)
+    options.SignIn.RequireConfirmedAccount = false;
+})
+    // Store user accounts in the BaseballShop database using Entity Framework
+    .AddEntityFrameworkStores<BaseballShop>();
+
+// Register authentication and authorization services
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
+// Register scoped services and repositories for dependency injection
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<MockPaymentService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the request pipeline
+
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseExceptionHandler("/Home/Error"); // Custom error page for production
+    app.UseHsts(); // Enable HSTS for enhanced security
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS
+app.UseStaticFiles(); // Serve static files (CSS, JS, images, etc.)
 
-app.UseRouting();
+app.UseRouting(); // Middleware for handling routing
+
+app.UseAuthentication(); // Ensure authentication middleware is applied first
+app.UseAuthorization();  // Authorization middleware should come after routing
+
+app.UseSession(); // Activate session handling for cart functionality
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers(); // Enable endpoint mapping for controllers
+});
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"); // Default route configuration
 
-app.Run();
-
-// Maps the default controller route, enabling conventional routing in ASP.NET Core.
-app.MapDefaultControllerRoute();
-
-// Registers an instance of IHttpContextAccessor as a singleton,
-// allowing access to HTTP context-related data (like sessions) across the application.
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-// Adds the ShoppingCartService as a scoped service.
-// This ensures each request gets a unique instance, ideal for session-based shopping carts.
-builder.Services.AddScoped<ShoppingCartService>();
-
-// Enables session support within the application.
-// This is required to store cart items persistently across different requests.
-builder.Services.AddSession();
-
-// Activates session handling middleware to manage user sessions.
-app.UseSession();
-
-// Configures ASP.NET Core Identity with default settings.
-// The ApplicationUser class represents the user entity.
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-{
-    // Specifies whether users must confirm their email before signing in.
-    // Set to 'true' if email confirmation is required for account activation.
-    options.SignIn.RequireConfirmedAccount = false;
-})
-    // Uses Entity Framework to store user data in the BaseballShop database.
-    .AddEntityFrameworkStores<BaseballShop>();
-
-// Enables authentication services to validate user credentials.
-builder.Services.AddAuthentication();
-
-// Enables authorization services to manage access control (roles & policies).
-builder.Services.AddAuthorization();
-
-// Applies authentication middleware to enforce user login.
-app.UseAuthentication();
-
-// Applies authorization middleware to restrict access based on user roles and policies.
-app.UseAuthorization();
-
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-builder.Services.AddScoped<MockPaymentService>();
+app.Run(); // Start the application

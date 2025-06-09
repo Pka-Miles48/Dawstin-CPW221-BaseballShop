@@ -52,5 +52,11 @@ namespace Dawstin_CPW221_BaseballShop.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Login(string returnUrl = "/")
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
     }
 }

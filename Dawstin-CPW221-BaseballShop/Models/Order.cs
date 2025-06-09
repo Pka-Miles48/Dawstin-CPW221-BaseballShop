@@ -1,4 +1,6 @@
-﻿namespace Dawstin_CPW221_BaseballShop.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Dawstin_CPW221_BaseballShop.Models
 {
     /// <summary>
     /// Represents a customer's order in the Baseball Shop system.
@@ -46,5 +48,10 @@
         /// Gets or sets the total price of the order, including all purchased items.
         /// </summary>
         public decimal TotalPrice { get; set; }
+
+        /// <summary>
+        /// Gets or internally sets the unique identifier for a user.
+        /// </summary>
+        public int UserID { get; internal set; }
     }
 }

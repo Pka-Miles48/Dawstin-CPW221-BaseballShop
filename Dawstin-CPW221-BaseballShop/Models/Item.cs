@@ -48,7 +48,9 @@ namespace Dawstin_CPW221_BaseballShop.Models
         [NotMapped]
         public object Category { get; set; }
 
+        /// <summary>
+        /// Gets or sets the category associated with the item.
+        /// </summary>
         public Category ItemCategory { get; set; }
-
     }
 }

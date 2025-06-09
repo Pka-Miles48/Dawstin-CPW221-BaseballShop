@@ -4,8 +4,19 @@ using Dawstin_CPW221_BaseballShop.Baseball_Data;
 
 namespace Dawstin_CPW221_BaseballShop.Services
 {
+    /// <summary>
+    /// Simulates a payment processing service for transactions in the Baseball Shop.
+    /// </summary>
     public class MockPaymentService
     {
+        /// <summary>
+        /// Processes a mock payment transaction.
+        /// </summary>
+        /// <param name="amount">The amount to be processed.</param>
+        /// <param name="currency">The currency type for the transaction.</param>
+        /// <returns>
+        /// A message indicating success or failure, including a transaction ID if successful.
+        /// </returns>
         public string ProcessPayment(decimal amount, string currency)
         {
             // Simulate payment processing delay

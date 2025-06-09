@@ -10,6 +10,6 @@ Baseball Shop is a web application that allows users to browse, purchase, and ma
 [BaseballShop on Azure](https://dawstin-cpw221-baseballshop20250518044013.azurewebsites.net/)
 
 ## Prerequisites
-.NET Core SDK (version 8.0 or later)
-Visual Studio
-SQL Server
+- .NET Core SDK (version 8.0 or later)
+- Visual Studio
+- SQL Server

@@ -1,31 +1,41 @@
 ﻿@model List<Dawstin_CPW221_BaseballShop.Models.CartItem>
-
+@{
+    ViewData["Title"] = "ShoppingCart";
+}
 <h1>Shopping Cart</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Product.Name</td>
-                <td>@item.Quantity</td>
-                <td>@item.Product.Price.ToString("C")</td>
-                <td>@item.TotalPrice.ToString("C")</td>
-                <td>
-                    <a asp-action="RemoveFromCart" asp-route-productId="@item.Product.ProductID">Remove</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (Model != null && Model.Any())
+{
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Product.Price.ToString("C")</td>
+                            <td>@item.TotalPrice.ToString("C")</td>
+                            <td>
+                                <a asp-action="RemoveFromCart" asp-route-productId="@item.Product.ProductID">Remove</a>
+                            </td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+        <p>Your shopping cart is empty.</p>
+}
+
 
 <a asp-controller="Product" asp-action="Index">Continue Shopping</a>

@@ -1,0 +1,51 @@
+﻿CREATE TABLE Products (
+    ProductID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(255),
+    Price DECIMAL(10,2) NOT NULL,
+    Stock INT NOT NULL,
+    StockQuantity INT NOT NULL,
+    CreatedDate DATETIME DEFAULT GETDATE(),
+    CategoryID INT FOREIGN KEY REFERENCES dbo.Categories(CategoryID)
+);
+
+
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY IDENTITY(1,1),
+    CustomerID INT NOT NULL,
+    OrderDate DATETIME DEFAULT GETDATE(),
+    TotalAmount DECIMAL(10,2) NOT NULL,
+    Status NVARCHAR(50) DEFAULT 'Pending',
+    CustomerName NVARCHAR(255) NOT NULL,
+    TotalPrice DECIMAL(10,2) NOT NULL,
+    UserID INT NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+
+CREATE TABLE OrderItems (
+    OrderItemID INT PRIMARY KEY IDENTITY(1,1),
+    OrderID INT FOREIGN KEY REFERENCES Orders(OrderID),
+    ProductID INT FOREIGN KEY REFERENCES Products(ProductID),
+    Quantity INT NOT NULL,
+    Subtotal DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE ShoppingCart (
+    CartID INT PRIMARY KEY IDENTITY(1,1),
+    ProductID INT FOREIGN KEY REFERENCES Products(ProductID),
+    Quantity INT NOT NULL
+);
+
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    Email NVARCHAR(255) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Role NVARCHAR(50) DEFAULT 'Customer'
+);

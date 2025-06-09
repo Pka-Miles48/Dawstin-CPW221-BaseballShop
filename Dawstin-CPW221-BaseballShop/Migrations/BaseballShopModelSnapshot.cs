@@ -10,9 +10,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dawstin_CPW221_BaseballShop.Migrations
 {
+    /// <summary>
+    /// Represents a snapshot of the current state of the database model.
+    /// </summary>
     [DbContext(typeof(BaseballShop))]
     partial class BaseballShopModelSnapshot : ModelSnapshot
     {
+        /// <summary>
+        /// Builds the database model with its entity configurations.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder used to define database structures.</param>
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
@@ -23,294 +30,382 @@ namespace Dawstin_CPW221_BaseballShop.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Category", b =>
-                {
-                    b.Property<int>("CategoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                /// <summary>
+                /// Represents the Category table.
+                /// </summary>
+                b.Property<int>("CategoryID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                /// <summary>
+                /// The name of the category.
+                /// </summary>
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CategoryID");
+                b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                b.ToTable("Categories");
 
-                    b.HasData(
-                        new
-                        {
-                            CategoryID = 1,
-                            Name = "Bats"
-                        },
-                        new
-                        {
-                            CategoryID = 2,
-                            Name = "Gloves"
-                        });
-                });
+                b.HasData(
+                    new { CategoryID = 1, Name = "Bats" },
+                    new { CategoryID = 2, Name = "Gloves" }
+                );
+            });
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                /// <summary>
+                /// Represents a customer in the baseball shop system.
+                /// </summary>
+                b.Property<int>("CustomerID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int"); // Unique identifier for the customer.
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                /// <summary>
+                /// The date the customer account was created.
+                /// </summary>
+                b.Property<DateTime>("CreatedDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                /// <summary>
+                /// The customer's email address.
+                /// </summary>
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                /// <summary>
+                /// The customer's first name.
+                /// </summary>
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                /// <summary>
+                /// The customer's last name.
+                /// </summary>
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                /// <summary>
+                /// The customer's phone number.
+                /// </summary>
+                b.Property<string>("Phone")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CustomerID");
-
-                    b.ToTable("Customers");
-                });
+                b.HasKey("CustomerID");
+                b.ToTable("Customers");
+            });
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Event", b =>
-                {
-                    b.Property<int>("EventID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                /// <summary>
+                /// Represents an event in the baseball shop system.
+                /// </summary>
+                b.Property<int>("EventID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int"); // Unique identifier for the event.
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                /// <summary>
+                /// The description of the event.
+                /// </summary>
+                b.Property<string>("Description")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EventDate")
-                        .HasColumnType("datetime2");
+                /// <summary>
+                /// The date of the event.
+                /// </summary>
+                b.Property<DateTime>("EventDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                /// <summary>
+                /// The name of the event.
+                /// </summary>
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EventID");
-
-                    b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Item", b =>
-                {
-                    b.Property<int>("ItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemID"));
-
-                    b.Property<int?>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ItemID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Order", b =>
-                {
-                    b.Property<int>("OrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("OrderID");
-
-                    b.HasIndex("CustomerID");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.OrderDetail", b =>
-                {
-                    b.Property<int>("OrderDetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"));
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderDetailID");
-
-                    b.HasIndex("OrderID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Product", b =>
-                {
-                    b.Property<int>("ProductID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductID = 1,
-                            CategoryID = 1,
-                            CreatedDate = new DateTime(2025, 5, 18, 23, 10, 24, 926, DateTimeKind.Local).AddTicks(6063),
-                            Description = "High-quality aluminum bat",
-                            Name = "Baseball Bat",
-                            Price = 99.99m,
-                            Stock = 50
-                        },
-                        new
-                        {
-                            ProductID = 2,
-                            CategoryID = 2,
-                            CreatedDate = new DateTime(2025, 5, 18, 23, 10, 24, 926, DateTimeKind.Local).AddTicks(6155),
-                            Description = "Durable leather glove",
-                            Name = "Baseball Glove",
-                            Price = 49.99m,
-                            Stock = 30
-                        });
-                });
+                b.HasKey("EventID");
+                b.ToTable("Events");
+            });
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Item", b =>
-                {
-                    b.HasOne("Dawstin_CPW221_BaseballShop.Models.Category", "ItemCategory")
-                        .WithMany("Items")
-                        .HasForeignKey("CategoryID");
+            {
+                /// <summary>
+                /// Represents an item in the baseball shop.
+                /// </summary>
+                b.Property<int>("ItemID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int"); // Unique identifier for the item.
 
-                    b.Navigation("ItemCategory");
-                });
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemID"));
+
+                /// <summary>
+                /// The category ID of the item (nullable).
+                /// </summary>
+                b.Property<int?>("CategoryID")
+                    .HasColumnType("int");
+
+                /// <summary>
+                /// The date the item was added to the database.
+                /// </summary>
+                b.Property<DateTime>("CreatedDate")
+                    .HasColumnType("datetime2");
+
+                /// <summary>
+                /// The description of the item.
+                /// </summary>
+                b.Property<string>("Description")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                /// <summary>
+                /// The name of the item.
+                /// </summary>
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                /// <summary>
+                /// The price of the item.
+                /// </summary>
+                b.Property<decimal>("Price")
+                    .HasColumnType("decimal(18,2)");
+
+                b.HasKey("ItemID");
+                b.HasIndex("CategoryID");
+                b.ToTable("Items");
+            });
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Order", b =>
-                {
-                    b.HasOne("Dawstin_CPW221_BaseballShop.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                /// <summary>
+                /// Represents an order placed by a customer.
+                /// </summary>
+                b.Property<int>("OrderID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int"); // Unique identifier for the order.
 
-                    b.Navigation("Customer");
-                });
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
+
+                /// <summary>
+                /// The ID of the customer who placed the order.
+                /// </summary>
+                b.Property<int>("CustomerID")
+                    .HasColumnType("int");
+
+                /// <summary>
+                /// The name of the customer associated with the order.
+                /// </summary>
+                b.Property<string>("CustomerName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                /// <summary>
+                /// The date the order was placed.
+                /// </summary>
+                b.Property<DateTime>("OrderDate")
+                    .HasColumnType("datetime2");
+
+                /// <summary>
+                /// The current status of the order (e.g., Pending, Shipped, Delivered).
+                /// </summary>
+                b.Property<string>("Status")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                /// <summary>
+                /// The total amount charged for the order.
+                /// </summary>
+                b.Property<decimal>("TotalAmount")
+                    .HasColumnType("decimal(18,2)");
+
+                /// <summary>
+                /// The total price of all products in the order.
+                /// </summary>
+                b.Property<decimal>("TotalPrice")
+                    .HasColumnType("decimal(18,2)");
+
+                b.HasKey("OrderID");
+                b.HasIndex("CustomerID");
+                b.ToTable("Orders");
+            });
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.OrderDetail", b =>
-                {
-                    b.HasOne("Dawstin_CPW221_BaseballShop.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                /// <summary>
+                /// Represents the details of a product in an order.
+                /// </summary>
+                b.Property<int>("OrderDetailID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int"); // Unique identifier for the order detail.
 
-                    b.HasOne("Dawstin_CPW221_BaseballShop.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"));
 
-                    b.Navigation("Order");
+                /// <summary>
+                /// The ID of the order this detail belongs to.
+                /// </summary>
+                b.Property<int>("OrderID")
+                    .HasColumnType("int");
 
-                    b.Navigation("Product");
-                });
+                /// <summary>
+                /// The ID of the product included in the order.
+                /// </summary>
+                b.Property<int>("ProductID")
+                    .HasColumnType("int");
+
+                /// <summary>
+                /// The quantity of the product in the order.
+                /// </summary>
+                b.Property<int>("Quantity")
+                    .HasColumnType("int");
+
+                b.HasKey("OrderDetailID");
+                b.HasIndex("OrderID");
+                b.HasIndex("ProductID");
+                b.ToTable("OrderDetails");
+            });
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Product", b =>
-                {
-                    b.HasOne("Dawstin_CPW221_BaseballShop.Models.Category", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            {
+                /// <summary>
+                /// Represents a product available in the baseball shop.
+                /// </summary>
+                b.Property<int>("ProductID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int"); // Unique identifier for the product.
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
+
+                /// <summary>
+                /// The category ID associated with the product.
+                /// </summary>
+                b.Property<int>("CategoryID")
+                    .HasColumnType("int");
+
+                /// <summary>
+                /// The date the product was added to the system.
+                /// </summary>
+                b.Property<DateTime>("CreatedDate")
+                    .HasColumnType("datetime2");
+
+                /// <summary>
+                /// A brief description of the product.
+                /// </summary>
+                b.Property<string>("Description")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                /// <summary>
+                /// The name of the product.
+                /// </summary>
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                /// <summary>
+                /// The price of the product.
+                /// </summary>
+                b.Property<decimal>("Price")
+                    .HasColumnType("decimal(18,2)");
+
+                /// <summary>
+                /// The available stock quantity of the product.
+                /// </summary>
+                b.Property<int>("Stock")
+                    .HasColumnType("int");
+
+                b.HasKey("ProductID");
+                b.HasIndex("CategoryID");
+                b.ToTable("Products");
+            });
+
+            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Item", b =>
+            {
+                /// <summary>
+                /// Establishes the relationship between an item and its category.
+                /// </summary>
+                b.HasOne("Dawstin_CPW221_BaseballShop.Models.Category", "ItemCategory")
+                    .WithMany("Items")
+                    .HasForeignKey("CategoryID");
+
+                b.Navigation("ItemCategory");
+            });
+
+            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Order", b =>
+            {
+                /// <summary>
+                /// Establishes the relationship between an order and its customer.
+                /// </summary>
+                b.HasOne("Dawstin_CPW221_BaseballShop.Models.Customer", "Customer")
+                    .WithMany()
+                    .HasForeignKey("CustomerID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Customer");
+            });
+
+            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.OrderDetail", b =>
+            {
+                /// <summary>
+                /// Establishes the relationship between an order detail and its order.
+                /// </summary>
+                b.HasOne("Dawstin_CPW221_BaseballShop.Models.Order", "Order")
+                    .WithMany()
+                    .HasForeignKey("OrderID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                /// <summary>
+                /// Establishes the relationship between an order detail and its product.
+                /// </summary>
+                b.HasOne("Dawstin_CPW221_BaseballShop.Models.Product", "Product")
+                    .WithMany()
+                    .HasForeignKey("ProductID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Order");
+                b.Navigation("Product");
+            });
+
+            modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Product", b =>
+            {
+                /// <summary>
+                /// Establishes the relationship between a product and its category.
+                /// </summary>
+                b.HasOne("Dawstin_CPW221_BaseballShop.Models.Category", null)
+                    .WithMany("Products")
+                    .HasForeignKey("CategoryID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Dawstin_CPW221_BaseballShop.Models.Category", b =>
-                {
-                    b.Navigation("Items");
+            {
+                /// <summary>
+                /// Navigational property for items within the category.
+                /// </summary>
+                b.Navigation("Items");
 
-                    b.Navigation("Products");
-                });
+                /// <summary>
+                /// Navigational property for products within the category.
+                /// </summary>
+                b.Navigation("Products");
+            });
 #pragma warning restore 612, 618
         }
     }
